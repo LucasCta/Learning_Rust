@@ -16,6 +16,11 @@ where
     println!("{:?} {} {:?}", left, if left == right { "==" } else { "!=" }, right);
 }
 
+fn make_tester(answer: String) -> impl Fn(&str) -> bool {
+    move |challenge| {
+        challenge == answer
+    }
+}
 
 fn main() {
 
@@ -28,5 +33,16 @@ fn main() {
     print_number(&z);
 
     compare(&x, &y);
+
+    let o1: Option<i32> = Some(128);
+    o1.unwrap(); // this is fine
+
+    //let o2: Option<i32> = None;
+    //o2.unwrap(); // this panics!
+    
+    let test = make_tester("hunter2".into());
+    println!("{}", test("******"));
+    println!("{}", test("hunter2"));    
+    
 
 }
